@@ -47,6 +47,13 @@
 			}); 
 		}); 
 	</script> 
+    <body>
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" id="fileInput" name="file">
+            <button type="button" onclick="uploadFile()">Upload</button>
+        </form>
+        <script src="{{ url_for('static', filename='upload.js') }}"></script>
+    </body>
 </head> 
 <body> 
 	<div class="container p-3"> 
