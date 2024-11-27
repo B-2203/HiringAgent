@@ -27,14 +27,18 @@ def upload():
         print('Resume extraction in processing')
         if 'file' not in request.files:
             return jsonify({'error': 'No file part in the request'}), 400
-        import pdb
-        pdb.set_trace()
         file = request.files['file']
         if file.filename == '':
             return jsonify({'error': 'No file selected'}), 400
-        response = extract_resume_data(file)
+        # response = extract_resume_data(file)
+        dummy_response= {
+            "name": "Bhavesh",
+            "skills": ["python", "django"],
+            "experience": "5 years",
+            "certifications": "No"
+            }
 
-        return jsonify({'response': response})
+        return jsonify({'response': dummy_response})
     return render_template('index.html')
 
 
