@@ -41,9 +41,9 @@ class InformationGatheringState(TypedDict):
 class InformationGathered(BaseModel):
     """Information gathered from candidate"""
     name: Optional[str] = Field(..., description='Name of the user')
-    skills: Optional[str] = Field(..., description='Skills listed by the user')
+    skills: Optional[List[str]] = Field(..., description='Skills listed by the user')
     experience: Optional[str] = Field(..., description='Years of experience a user has')
-    certifications: Optional[str] = Field(..., description='Certifications listed by the user')
+    certifications: Optional[List[str]] = Field(..., description='Certifications listed by the user')
 
 llm = ChatOllama(model = "llama3.2", temperature=0)
 llm_structured = llm.with_structured_output(InformationGathered)
@@ -72,3 +72,4 @@ def info(state: InformationGatheringState):
         data.setdefault("messages", messages[-1])
         state.update(data)
     return state
+
