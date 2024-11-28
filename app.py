@@ -2,14 +2,19 @@ from flask import Flask, render_template, request, jsonify
 
 from main_agent import stream_graph_updates
 from tools.resume_extractor import extract_resume_data
+from flask_cors import CORS, cross_origin
+app = Flask(__name__, static_url_path='',
+                  static_folder='ui/build',
+                  template_folder='ui/build')
+CORS(app)
 
-app = Flask(__name__)
 
 @app.route('/')
 def home():
     return render_template('index.html')
 
 @app.route("/query", methods=['POST', 'GET']) 
+@cross_origin()
 def query_view(): 
     if request.method == 'POST': 
         print('Query processing') 
@@ -41,6 +46,12 @@ def upload():
         return jsonify({'response': response})
     return render_template('index.html')
 
+
+
+
+@app.route("/ui")
+def ui():
+    return render_template("index.html")
 
 if __name__ == "__main__": 
     app.run(debug=True) 
