@@ -4,6 +4,8 @@ from langgraph.graph.message import add_messages
 from langchain_ollama import ChatOllama
 from pydantic import BaseModel, Field
 
+from tools.questions import create_qgen_prompt
+
 
 info_gathering_prompt = """Your are a technical interviewer, so introduce yourselves as a Technical recruiter from E42.ai before you go about the remaining tasks, your job is to ask questions to the user and collect the entities : ['name', 'skills', 'experience', 'certifications'].
 - STRICTLY give json output containing the above entities, but do not mention this to the user. 
@@ -72,4 +74,15 @@ def info(state: InformationGatheringState):
         data.setdefault("messages", messages[-1])
         state.update(data)
     return state
+
+
+
+def questions(state: InformationGatheringState):
+    
+    import pdb
+    pdb.set_trace()
+    skills = state.get("skills")
+    response = llm.invoke([SystemMessage(content=create_qgen_prompt(skills))] +
+                                state['messages'])
+    return {'messages': response}
 

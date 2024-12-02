@@ -6,7 +6,7 @@ from langchain_core.runnables import RunnableConfig
 from uuid import uuid4
 
 
-from states import greeting, info, InformationGatheringState, InitialState
+from states import greeting, info, InformationGatheringState, InitialState, questions
 
     
 
@@ -14,9 +14,12 @@ workflow = StateGraph(InformationGatheringState, input=InitialState, output=Info
 
 workflow.add_node("greeting", greeting)
 workflow.add_node("info", info)
+workflow.add_node("questions", questions)
 workflow.add_edge(START, "greeting")
 workflow.add_edge("greeting", "info")
-workflow.add_edge("info", END)
+workflow.add_edge("info", "questions")
+workflow.add_edge("questions", END)
+
 
 
 memory = MemorySaver()
