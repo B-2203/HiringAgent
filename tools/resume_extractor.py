@@ -3,11 +3,11 @@ from langchain_core.messages import AIMessage, HumanMessage, ToolMessage, System
 
 from states import llm_structured, gather_entities
 
-url = "http://ashish.e42.ai/edith/service/get_ocr"
+url = "http://<DOMAIN>/edith/service/get_ocr"
 
 payload = {"scale": 4.17}
 headers = {
-    'Authorization': 'Bearer oLmuIAnloO04NDQNFsTbfcAsjDGxKv'
+    'Authorization': 'Bearer <TOKEN>'
 }
 
 def create_prompt(resume_data):
